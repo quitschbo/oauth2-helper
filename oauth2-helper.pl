@@ -12,10 +12,16 @@ use JSON;
 my $reftokenfile = "$ENV{HOME}/.oauth2_reftoken";
 my $acctokenfile = "$ENV{HOME}/.oauth2_acctoken";
 
-# These three parameters are taken from Thunderbird's OAuth2Providers.jsm
-my $tokenserver = 'https://www.googleapis.com/oauth2/v3/token';
-my $client_id = '406964657835-aq8lmia8j95dhl1a2bvharmfk3t1hgqj.apps.googleusercontent.com';
-my $client_secret = 'kSmqreRr0qwBWJgbf5Y-PjSU';
+## These three parameters are taken from Thunderbird's OAuth2Providers.jsm
+#my $tokenserver = 'https://www.googleapis.com/oauth2/v3/token';
+#my $client_id = '406964657835-aq8lmia8j95dhl1a2bvharmfk3t1hgqj.apps.googleusercontent.com';
+#my $client_secret = 'kSmqreRr0qwBWJgbf5Y-PjSU';
+
+# These paramters were also taken from Thunderbirds OAuth2Providers.jsm
+# offcice 356 does not need a client_secret, however it needs the outh2_scope set
+my $client_id = '9e5f94bc-e8a4-4e73-b8be-63364c29d753';
+my $tokenserver = 'https://login.microsoftonline.com/common/oauth2/v2.0/token';
+my $oauth2_scope = 'https://outlook.office365.com/IMAP.AccessAsUser.All https://outlook.office365.com/POP.AccessAsUser.All https://outlook.office365.com/SMTP.Send offline_access';
 
 ###########################################################
 
@@ -52,7 +58,8 @@ my $req = POST $tokenserver,
   [
    'grant_type' => 'refresh_token',
    'client_id' => $client_id,
-   'client_secret' => $client_secret,
+   'oauth2_scope' => $oauth2_scope,
+   #'client_secret' => $client_secret,
    'refresh_token', $refresh_token,
   ];
 
